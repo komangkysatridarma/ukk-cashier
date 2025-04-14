@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,9 +9,7 @@ import '../../../core/utils/validators.dart';
 import 'login_button.dart';
 
 class LoginPageForm extends StatefulWidget {
-  const LoginPageForm({
-    super.key,
-  });
+  const LoginPageForm({super.key});
 
   @override
   State<LoginPageForm> createState() => _LoginPageFormState();
@@ -18,18 +17,69 @@ class LoginPageForm extends StatefulWidget {
 
 class _LoginPageFormState extends State<LoginPageForm> {
   final _key = GlobalKey<FormState>();
-
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   bool isPasswordShown = false;
-  onPassShowClicked() {
+  bool isLoading = false;
+
+  void onPassShowClicked() {
     isPasswordShown = !isPasswordShown;
     setState(() {});
   }
 
-  onLogin() {
+  Future<void> onLogin() async {
     final bool isFormOkay = _key.currentState?.validate() ?? false;
-    if (isFormOkay) {
-      Navigator.pushNamed(context, AppRoutes.entryPoint);
+    if (!isFormOkay) return;
+
+    setState(() => isLoading = true);
+
+    try {
+      final query = await FirebaseFirestore.instance
+          .collection('user')
+          .where('email', isEqualTo: _emailController.text.trim())
+          .limit(1)
+          .get();
+
+      if (query.docs.isEmpty) {
+        _showError('Email tidak ditemukan.');
+        return;
+      }
+
+      final userData = query.docs.first.data();
+      final password = userData['password'];
+      final role = userData['role'];
+
+      if (_passwordController.text != password) {
+        _showError('Password salah.');
+        return;
+      }
+
+      if (role == 'petugas') {
+        Navigator.pushNamed(
+          context,
+          AppRoutes.entryPoint,
+          arguments: {'role': role},
+        );
+      } else {
+       Navigator.pushNamed(
+          context,
+          AppRoutes.entryPointAdmin,
+          arguments: {'role': role},
+        );
+      }
+    } catch (e) {
+      _showError('Terjadi kesalahan: $e');
+    } finally {
+      setState(() => isLoading = false);
     }
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.red,
+    ));
+    setState(() => isLoading = false);
   }
 
   @override
@@ -45,45 +95,39 @@ class _LoginPageFormState extends State<LoginPageForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // email Field
               const Text("Email"),
               const SizedBox(height: 8),
               TextFormField(
-                keyboardType: TextInputType.text,
-                validator: Validators.requiredWithFieldName('email').call,
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                validator: Validators.requiredWithFieldName('email'),
                 textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: AppDefaults.padding),
 
-              // Password Field
               const Text("Password"),
               const SizedBox(height: 12),
               TextFormField(
-                validator: Validators.password.call,
-                onFieldSubmitted: (v) => onLogin(),
+                controller: _passwordController,
+                validator: Validators.password,
+                onFieldSubmitted: (_) => onLogin(),
                 textInputAction: TextInputAction.done,
                 obscureText: !isPasswordShown,
                 decoration: InputDecoration(
-                  suffixIcon: Material(
-                    color: Colors.transparent,
-                    child: IconButton(
-                      onPressed: onPassShowClicked,
-                      icon: SvgPicture.asset(
-                        AppIcons.eye,
-                        width: 24,
-                      ),
+                  suffixIcon: IconButton(
+                    onPressed: onPassShowClicked,
+                    icon: SvgPicture.asset(
+                      AppIcons.eye,
+                      width: 24,
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 8,
-              ),
+              const SizedBox(height: 12),
 
-              // Forget Password labelLarge
-
-              // Login labelLarge
-              LoginButton(onPressed: onLogin),
+              isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : LoginButton(onPressed: onLogin),
             ],
           ),
         ),

@@ -20,7 +20,7 @@ class OrderDetailsProductTile extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 1 / 1,
             child: NetworkImageWithLoader(
-              data.cover,
+              data.images,
               fit: BoxFit.contain,
             ),
           ),
@@ -38,7 +38,6 @@ class OrderDetailsProductTile extends StatelessWidget {
                     ),
               ),
               const SizedBox(height: 8),
-              Text(data.weight)
             ],
           ),
         ),

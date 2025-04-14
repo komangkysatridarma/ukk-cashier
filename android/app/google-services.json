@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "122146204169",
+    "project_id": "ukk-cashier",
+    "storage_bucket": "ukk-cashier.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122146204169:android:a8cc301f51c5ab3b48a6d8",
+        "android_client_info": {
+          "package_name": "com.example.flutter_upgrde_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXopOf0lsyuNoLvN1fI6uaFmL9dAqhoDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

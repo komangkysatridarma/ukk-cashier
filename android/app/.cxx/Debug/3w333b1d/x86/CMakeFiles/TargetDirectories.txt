@@ -1,0 +1,2 @@
+C:/flutter/ukk-cashier/android/app/.cxx/Debug/3w333b1d/x86/CMakeFiles/edit_cache.dir
+C:/flutter/ukk-cashier/android/app/.cxx/Debug/3w333b1d/x86/CMakeFiles/rebuild_cache.dir

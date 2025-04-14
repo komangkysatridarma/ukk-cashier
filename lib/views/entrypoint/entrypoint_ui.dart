@@ -1,6 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:grocery/core/components/pembelian_page.dart';
+import 'package:grocery/views/home/home_petugas.dart';
 import 'package:grocery/views/menu/category_page.dart';
 import '../../core/constants/app_icons.dart';
 
@@ -13,19 +15,19 @@ import '../profile/profile_page.dart';
 import '../save/save_page.dart';
 import 'components/app_navigation_bar.dart';
 
-/// This page will contain all the bottom navigation tabs
+
 class EntryPointUI extends StatefulWidget {
-  const EntryPointUI({super.key});
+  final int initialIndex;
+
+  const EntryPointUI({super.key, this.initialIndex = 0});
 
   @override
   State<EntryPointUI> createState() => _EntryPointUIState();
 }
 
 class _EntryPointUIState extends State<EntryPointUI> {
-  /// Current Page
   int currentIndex = 0;
 
-  /// On labelLarge navigation tap
   void onBottomNavigationTap(int index) {
     currentIndex = index;
     setState(() {});
@@ -33,11 +35,9 @@ class _EntryPointUIState extends State<EntryPointUI> {
 
   /// All the pages
   List<Widget> pages = [
-    const HomePage(),
+    const HomePetugas(),
     const CategoryProductPage(),
-    const CartPage(isHomePage: true),
-    const SavePage(isHomePage: false),
-    const ProfilePage(),
+    const PembelianPage(),
   ];
 
   @override
@@ -56,14 +56,7 @@ class _EntryPointUIState extends State<EntryPointUI> {
         duration: AppDefaults.duration,
         child: pages[currentIndex],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          onBottomNavigationTap(2);
-        },
-        backgroundColor: AppColors.primary,
-        child: SvgPicture.asset(AppIcons.cart),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      
       bottomNavigationBar: AppBottomNavigationBar(
         currentIndex: currentIndex,
         onNavTap: onBottomNavigationTap,

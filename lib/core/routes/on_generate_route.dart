@@ -1,4 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:grocery/core/components/data_member_page.dart';
+import 'package:grocery/core/components/data_pembelian_page.dart';
+import 'package:grocery/core/components/edit_product_page.dart';
+import 'package:grocery/core/components/edit_user_page.dart';
+import 'package:grocery/core/components/isMember.dart';
+import 'package:grocery/core/components/pembelian_page.dart';
+import 'package:grocery/core/components/result_pembelian.dart';
+import 'package:grocery/core/components/tambah_pembelian_page.dart';
+import 'package:grocery/core/components/tambah_product_page.dart';
+import 'package:grocery/core/components/tambah_user_page.dart';
+import 'package:grocery/core/components/update_stok_page.dart';
+import 'package:grocery/views/entrypoint/entrypoint_admin.dart';
 
 import '../../views/auth/forget_password_page.dart';
 import '../../views/auth/intro_login_page.dart';
@@ -61,7 +73,40 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => const OnboardingPage());
 
       case AppRoutes.entryPoint:
-        return CupertinoPageRoute(builder: (_) => const EntryPointUI());
+        return CupertinoPageRoute(builder: (_) => const EntryPointUI(), settings: settings);
+
+      case AppRoutes.entryPointAdmin:
+        return CupertinoPageRoute(builder: (_) => const EntrypointAdmin(), settings: settings);
+
+      case AppRoutes.addProduct:
+        return CupertinoPageRoute(builder: (_) => const TambahProdukPage(), settings: settings);
+
+      case AppRoutes.pembelianPage:
+        return CupertinoPageRoute(builder: (_) => const PembelianPage(), settings: settings);
+
+      case AppRoutes.addPembelian:
+        return CupertinoPageRoute(builder: (_) => const DataPembelianPage(), settings: settings);
+
+      case AppRoutes.addMember:
+        return CupertinoPageRoute(builder: (_) => const DataMemberPage(), settings: settings);
+
+      case AppRoutes.editProduct:
+        return CupertinoPageRoute(builder: (_) => const EditProductPage(), settings: settings);
+
+      case AppRoutes.editUser:
+        return CupertinoPageRoute(builder: (_) => const EditUserPage(), settings: settings);
+
+      case AppRoutes.updateStokProduct:
+        return CupertinoPageRoute(builder: (_) => const UpdateStokPage(), settings: settings);
+
+      case AppRoutes.addUser:
+        return CupertinoPageRoute(builder: (_) => const TambahUserPage(), settings: settings);
+
+      case AppRoutes.isMember:
+        return CupertinoPageRoute(builder: (_) => const IsMember(), settings: settings);
+
+      case AppRoutes.resultPembelian:
+        return CupertinoPageRoute(builder: (_) => const ResultPembelianPage(), settings: settings);
 
       case AppRoutes.search:
         return CupertinoPageRoute(builder: (_) => const SearchPage());

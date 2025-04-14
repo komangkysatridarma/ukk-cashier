@@ -13,10 +13,21 @@ class AppRoutes {
 
   /* <---- ENTRYPOINT -----> */
   static const entryPoint = '/entry_point';
+  static const entryPointAdmin = '/entry_point_admin';
 
   /* <---- Products Order Process -----> */
   static const home = '/home';
   static const newItems = '/newItems';
+  static const pembelianPage = '/pembelian-page';
+  static const addProduct= '/add-produk';
+  static const addPembelian= '/add-pembelian';
+  static const addUser= '/add-userr';
+  static const addMember= '/add-member';
+  static const editProduct= '/edit-produk';
+  static const editUser= '/edit-user';
+  static const updateStokProduct= '/edit-stok-produk';
+  static const resultPembelian = '/result-pembelian';
+  static const isMember= '/isMember';
   static const popularItems = '/popularItems';
   static const bundleProduct = '/bundleProduct';
   static const createMyPack = '/createMyPack';

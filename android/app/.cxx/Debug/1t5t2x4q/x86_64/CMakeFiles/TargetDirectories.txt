@@ -1,0 +1,2 @@
+C:/Users/pplg/OneDrive/Documents/flutter/ukk-cashier/android/app/.cxx/Debug/1t5t2x4q/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/pplg/OneDrive/Documents/flutter/ukk-cashier/android/app/.cxx/Debug/1t5t2x4q/x86_64/CMakeFiles/rebuild_cache.dir
